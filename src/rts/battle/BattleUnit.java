@@ -15,8 +15,10 @@ public class BattleUnit
 	public String posD;
 	
 	// Graphics
-	public BufferedImage gfxTileset;
-	public BufferedImage gfxPortrait;
+	public int width;
+	public int height;
+	public String gfxTileset;
+	public String gfxPortrait;
 	
 	// Stats
 	public int healthNow;

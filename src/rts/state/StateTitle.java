@@ -78,6 +78,18 @@ public class StateTitle extends State
 				Battle.army[1].resourceFood = 500;
 				Battle.army[1].resourceGold = 425;
 				Battle.army[1].resourceStone = 150;
+				Battle.army[1].favourNow = 15;
+				Battle.army[1].favourMax = 75;
+				Battle.unitAdd("Temp", 1, 6, 9);
+				Battle.unit[1].name = "Explorer";
+				Battle.unit[1].posD = "S";
+				Battle.unit[1].width = 1;
+				Battle.unit[1].height = 1;
+				//Battle.unit[1].gfxTileset
+				Battle.unit[1].gfxPortrait = "portrait/tempMitsunaga2.png";
+				Battle.unit[1].healthNow = 100;
+				Battle.unit[1].healthMax = 100;
+				Battle.unit[1].action = "Idle";
 				Battle.buildingAdd("TownCenter",1,4,4);
 				Battle.building[1].name = "Town Center";
 				Battle.building[1].width = 4;

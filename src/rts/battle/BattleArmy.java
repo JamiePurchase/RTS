@@ -17,6 +17,10 @@ public class BattleArmy
 	public int populationNow = 0;
 	public int populationMax = 0;
 	
+	// Favour
+	public int favourNow = 0;
+	public int favourMax = 0;
+	
 	public BattleArmy(String setControl, String setNation)
 	{
 		control = setControl;
