@@ -16,8 +16,8 @@ public class BattleBuilding
 	public int height;
 	
 	// Graphics
-	public String gfxImage;
-	public String gfxPortrait;
+	public static String gfxImage;
+	public static String gfxPortrait;
 	
 	// Stats
 	public int healthNow;
@@ -44,5 +44,15 @@ public class BattleBuilding
 		healthNow = 0;
 		healthMax = 0;
 		action = "Idle";
+	}
+	
+	public static String getImage(String type)
+	{
+		return gfxImage + type + ".png";
+	}
+	
+	public static String getPortrait()
+	{
+		return gfxPortrait + ".png";
 	}
 }

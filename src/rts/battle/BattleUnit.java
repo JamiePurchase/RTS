@@ -2,6 +2,9 @@ package rts.battle;
 
 import java.awt.image.BufferedImage;
 
+import rts.display.Drawing;
+import rts.display.Spritesheet;
+
 public class BattleUnit
 {
 	// Details
@@ -17,8 +20,8 @@ public class BattleUnit
 	// Graphics
 	public int width;
 	public int height;
-	public String gfxTileset;
-	public String gfxPortrait;
+	public static String gfxTileset;
+	public static String gfxPortrait;
 	
 	// Stats
 	public int healthNow;
@@ -45,5 +48,32 @@ public class BattleUnit
 		healthNow = 0;
 		healthMax = 0;
 		action = "Idle";
+	}
+	
+	public static BufferedImage getImage(String direction, int frame)
+	{
+		// Spritesheet
+		String image = gfxTileset + ".png";
+		Spritesheet sheet = new Spritesheet(Drawing.getImage(image));
+		
+		// Individual Image
+		if(direction=="N" && frame==1){return sheet.crop(32, 96, 32, 32);}
+		if(direction=="N" && frame==2){return sheet.crop(0, 96, 32, 32);}
+		if(direction=="N" && frame==3){return sheet.crop(64, 96, 32, 32);}
+		if(direction=="E" && frame==1){return sheet.crop(32, 64, 32, 32);}
+		if(direction=="E" && frame==2){return sheet.crop(0, 64, 32, 32);}
+		if(direction=="E" && frame==3){return sheet.crop(64, 64, 32, 32);}
+		if(direction=="S" && frame==1){return sheet.crop(32, 0, 32, 32);}
+		if(direction=="S" && frame==2){return sheet.crop(0, 0, 32, 32);}
+		if(direction=="S" && frame==3){return sheet.crop(64, 0, 32, 32);}
+		if(direction=="W" && frame==1){return sheet.crop(32, 32, 32, 32);}
+		if(direction=="W" && frame==2){return sheet.crop(0, 32, 32, 32);}
+		if(direction=="W" && frame==3){return sheet.crop(64, 32, 32, 32);}
+		return sheet.crop(32, 0, 32, 32);
+	}
+	
+	public static String getPortrait()
+	{
+		return gfxPortrait + ".png";
 	}
 }

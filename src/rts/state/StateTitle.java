@@ -85,8 +85,8 @@ public class StateTitle extends State
 				Battle.unit[1].posD = "S";
 				Battle.unit[1].width = 1;
 				Battle.unit[1].height = 1;
-				//Battle.unit[1].gfxTileset
-				Battle.unit[1].gfxPortrait = "portrait/tempMitsunaga2.png";
+				Battle.unit[1].gfxTileset = "unit/explorer1";
+				Battle.unit[1].gfxPortrait = "portrait/tempMitsunaga2";
 				Battle.unit[1].healthNow = 100;
 				Battle.unit[1].healthMax = 100;
 				Battle.unit[1].action = "Idle";
@@ -94,7 +94,7 @@ public class StateTitle extends State
 				Battle.building[1].name = "Town Center";
 				Battle.building[1].width = 4;
 				Battle.building[1].height = 4;
-				Battle.building[1].gfxImage = "building/TownCenter.png";
+				Battle.building[1].gfxImage = "building/TownCenter1";
 				
 				// Temp - Computer
 				Battle.army[2] = new BattleArmy("Computer","Nation2");

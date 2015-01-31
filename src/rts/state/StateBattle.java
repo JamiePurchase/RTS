@@ -39,12 +39,11 @@ public class StateBattle extends State
 	{
 		for(int x=1;x<=Game.battle.buildingCount;x+=1)
 		{
+			String stance = "I";
+			if(Game.battle.selectionActive==true && Game.battle.selectionType=="Building" && Game.battle.selectionID==x){stance = "S";}
 			int posX = (32 * Game.battle.building[x].posX) - 20;
 			int posY = (32 * Game.battle.building[x].posY) + 19;
-			
-			// If the building is selected, draw the highlight/cursor image beneath
-			
-			g.drawImage(Drawing.getImage(Game.battle.building[x].gfxImage), posX, posY, null);
+			g.drawImage(Drawing.getImage(Game.battle.building[x].getImage(stance)), posX, posY, null);
 		}
 	}
 	
@@ -120,12 +119,12 @@ public class StateBattle extends State
 		if(Game.battle.selectionType=="Building")
 		{
 			selectTitle = Game.battle.building[Game.battle.selectionID].name;
-			//portrait = Drawing.getImage(Game.battle.building[Game.battle.selectionID].gfxPortrait);
+			//portrait = Drawing.getImage(Game.battle.building[Game.battle.selectionID].getPortrait());
 		}
 		if(Game.battle.selectionType=="Unit")
 		{
 			selectTitle = Game.battle.unit[Game.battle.selectionID].name;
-			portrait = Drawing.getImage(Game.battle.unit[Game.battle.selectionID].gfxPortrait);
+			portrait = Drawing.getImage(Game.battle.unit[Game.battle.selectionID].getPortrait());
 		}
 		
 		// Name
@@ -156,13 +155,10 @@ public class StateBattle extends State
 	{
 		for(int x=1;x<=Game.battle.unitCount;x+=1)
 		{
+			// Note: for now, we are only returning the first frame
+			BufferedImage image = Game.battle.unit[x].getImage(Game.battle.unit[x].posD,1);
 			int posX = (32 * Game.battle.unit[x].posX) - 20;
 			int posY = (32 * Game.battle.unit[x].posY) + 19;
-			
-			// If the unit is selected, draw the highlight/cursor image beneath
-			
-			//Game.battle.unit[x].gfxImage[x]
-			BufferedImage image = Drawing.getImage("unit/temp.png");
 			g.drawImage(image, posX, posY, null);
 		}
 	}
