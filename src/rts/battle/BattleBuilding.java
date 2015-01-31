@@ -16,8 +16,8 @@ public class BattleBuilding
 	public int height;
 	
 	// Graphics
-	public BufferedImage gfxTileset;
-	public BufferedImage gfxPortrait;
+	public String gfxImage;
+	public String gfxPortrait;
 	
 	// Stats
 	public int healthNow;
@@ -39,7 +39,7 @@ public class BattleBuilding
 		posY = y;
 		width = 0;
 		height = 0;
-		//gfxTileset
+		//gfxImage
 		//gfxPortrait
 		healthNow = 0;
 		healthMax = 0;

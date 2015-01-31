@@ -1,5 +1,7 @@
 package rts.state;
 import rts.Game;
+import rts.battle.Battle;
+import rts.battle.BattleArmy;
 import rts.display.Drawing;
 import rts.display.ImageLoader;
 import rts.graphics.Assets;
@@ -64,8 +66,26 @@ public class StateTitle extends State
 			String ref = Game.mouse.nexusCheckRef();
 			if(ref=="ButtonStart")
 			{
-				Game.setStateChange(new StateBattle());
 				Game.mouse.mouseActionPressed = false;
+				
+				// Battle
+				Game.setStateChange(new StateBattle());
+				Game.battle = new Battle();
+				
+				// Temp - Player
+				Battle.army[1] = new BattleArmy("Player","Nation1");
+				Battle.army[1].resourceWood = 475;
+				Battle.army[1].resourceFood = 500;
+				Battle.army[1].resourceGold = 425;
+				Battle.army[1].resourceStone = 150;
+				Battle.buildingAdd("TownCenter",1,4,4);
+				Battle.building[1].name = "Town Center";
+				Battle.building[1].width = 4;
+				Battle.building[1].height = 4;
+				Battle.building[1].gfxImage = "building/TownCenter.png";
+				
+				// Temp - Computer
+				Battle.army[2] = new BattleArmy("Computer","Nation2");
 			}
 			if(ref=="ButtonQuit")
 			{

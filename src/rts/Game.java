@@ -1,4 +1,5 @@
 package rts;
+import rts.battle.Battle;
 import rts.graphics.Assets;
 import rts.mouse.Mouse;
 import rts.state.State;
@@ -37,6 +38,9 @@ public class Game extends JFrame implements Runnable
 	// Threads
 	private Thread thread;
 	private boolean running = false;
+	
+	// Temp
+	public static Battle battle;
  
 	public Game()
 	{
