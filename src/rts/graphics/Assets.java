@@ -11,13 +11,9 @@ public class Assets
 	public static Font fontButton;
 	public static Font fontStandard, fontStandardBold, fontStandardUnderline;
 	
-	// Title
-	public static BufferedImage uiTitleBkg;
-	
 	public static void init()
 	{
 		initFonts();
-		initInterface();
 	}
 	
 	public static void initFonts()
@@ -26,16 +22,6 @@ public class Assets
 		fontStandard = new Font("MV Boli", Font.PLAIN, 26);
 		fontStandardBold = new Font("MV Boli", Font.BOLD, 26);
 		fontStandardUnderline = new Font("MV Boli", Font.PLAIN, 26);
-	}
-	
-	public static void initInterface()
-	{
-		initInterfaceTitle();
-	}
-
-	public static void initInterfaceTitle()
-	{
-		uiTitleBkg = ImageLoader.loadImage("/interface/titleBkg.png");
 	}
 
 }

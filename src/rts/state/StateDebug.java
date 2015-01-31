@@ -12,24 +12,9 @@ public class StateDebug extends State
 	
 	public StateDebug()
 	{
-		
-	}
-	
-	public void tick()
-	{
-		if(Game.mouse.mouseActionPressed==true)
-		{
-			//State.setStateChange("Title");
-			Game.mouse.mouseActionPressed = false;
-			
-			// Temp
-			System.exit(0);
-		}
-		/*if(Keyboard.getKeyPressed()=="Escape")
-		{
-			// Quit
-			System.exit(0);
-		}*/
+		Game.mouse.nexusClear();
+		Game.mouse.nexusAdd("", 100, 100, 150, 50);
+		Game.mouse.nexusAdd("", 100, 100, 150, 50);
 	}
 	
 	public void render(Graphics g)
@@ -38,7 +23,9 @@ public class StateDebug extends State
 		renderOptions(g);
 		
 		// Temp
+		g.setColor(Color.BLUE);
 		g.fillOval(Game.mouse.mouseCoordsX,Game.mouse.mouseCoordsY,15,15);
+		g.drawString("Coords: ("+ Game.mouse.mouseCoordsX + " , " + Game.mouse.mouseCoordsY + ")", 1000, 75);
 	}
 	
 	public void renderBackground(Graphics g)
@@ -53,5 +40,22 @@ public class StateDebug extends State
 	{
 		Drawing.drawMenuItem(g, "Start",100,100,0);
 		Drawing.drawMenuItem(g, "Quit",100,300,0);
+	}
+	
+	public void tick()
+	{
+		if(Game.mouse.mouseActionPressed==true)
+		{
+			int click = Game.mouse.nexusCheck();
+			if(click==1)
+			{
+				//State.setStateChange("Title");
+				Game.mouse.mouseActionPressed = false;
+			}
+			if(click==2)
+			{
+				System.exit(0);
+			}
+		}
 	}
 }

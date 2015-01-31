@@ -28,7 +28,7 @@ public class Game extends JFrame implements Runnable
 	
 	// States
 	public State gameState;
-	public State stateTitle, stateDebug;
+	//public State stateTitle, stateDebug;
  
 	public Game()
 	{
@@ -79,11 +79,12 @@ public class Game extends JFrame implements Runnable
 	public void initStates()
 	{
 		// Load States
+		/*stateBattle = new StateBattle();
 		stateDebug = new StateDebug();
-		stateTitle = new StateTitle();
+		stateTitle = new StateTitle();*/
 		
 		// Initial State
-		State.setState(stateDebug);
+		State.setState(new StateTitle());
 	}
 
 	public void paint (Graphics g)
@@ -122,7 +123,6 @@ public class Game extends JFrame implements Runnable
 	
 	public void render()
 	{
-		System.out.println("render");
 	}
 	
 	public void run()
@@ -192,6 +192,6 @@ public class Game extends JFrame implements Runnable
 	
 	public void tick()
 	{
-		System.out.println("tick");
+		State.getState().tick();
 	}
 }
