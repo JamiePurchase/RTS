@@ -25,6 +25,14 @@ public class BattleBuilding
 	
 	// Action
 	public String action;
+	public int actionTrainNow;
+	public int actionTrainMax;
+	public BattleUnit actionTrainUnit;
+	
+	// Commands
+	public String[] commandLabel = new String[4];
+	public String[][] commandRef = new String[7][4];
+	public String[][] commandIcon = new String[7][4];
 	
 	// Shortcut
 	//public boolean shortcutActive = false;

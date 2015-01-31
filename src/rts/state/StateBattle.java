@@ -97,7 +97,7 @@ public class StateBattle extends State
 		String food = "" + Battle.army[1].resourceFood;
 		String gold = "" + Battle.army[1].resourceGold;
 		String stone = "" + Battle.army[1].resourceStone;
-		String population = "" + Battle.army[1].populationNow + "/" + Battle.army[1].populationMax; 
+		String population = "" + Battle.army[1].populationNow + "/" + Battle.army[1].populationMax;
 		g.setFont(Assets.fontStandard);
 		g.setColor(Color.BLACK);
 		g.drawString(wood, 380, 695);
@@ -111,8 +111,60 @@ public class StateBattle extends State
 	public void renderInterfaceSelection(Graphics g)
 	{
 		// Frame
-		g.drawImage(Drawing.getImage("interface/battleFrame5a.png"), 660, 562, null);
+		g.drawImage(Drawing.getImage("interface/battleFrame5.png"), 660, 562, null);
+		renderInterfaceSelectionCommands(g);
+		renderInterfaceSelectionDetails(g);
+	}
+	
+	public void renderInterfaceSelectionCommands(Graphics g)
+	{
+		// Temp
 		
+		/*g.setColor(Color.DARK_GRAY);
+		g.fillRect(915,602,115,50);
+		g.fillRect(915,657,115,50);
+		g.fillRect(915,712,115,50);*/
+		g.drawImage(Drawing.getImage("interface/battleCommandLabel.png"), 915, 602, null);
+		g.drawImage(Drawing.getImage("interface/battleCommandLabel.png"), 915, 657, null);
+		g.drawImage(Drawing.getImage("interface/battleCommandLabel.png"), 915, 712, null);
+		
+		String label1 = " ";
+		String label2 = " ";
+		String label3 = " ";
+		if(Game.battle.selectionType=="Building")
+		{
+			label1 = Game.battle.building[Game.battle.selectionID].commandLabel[1];
+			label2 = Game.battle.building[Game.battle.selectionID].commandLabel[2];
+			label3 = Game.battle.building[Game.battle.selectionID].commandLabel[3];
+		}
+		if(Game.battle.selectionType=="Unit")
+		{
+			/*label1 = Game.battle.unit[Game.battle.selectionID].commandLabel[1];
+			label2 = Game.battle.unit[Game.battle.selectionID].commandLabel[2];
+			label3 = Game.battle.unit[Game.battle.selectionID].commandLabel[3];*/
+		}
+		g.setFont(Assets.fontStandard);
+		g.setColor(Color.WHITE);
+		g.drawString(label1, 925, 635);
+		g.drawString(label2, 925, 690);
+		g.drawString(label3, 925, 745);
+		for(int x=1;x<=6;x+=1)
+		{
+			for(int y=1;y<=3;y+=1)
+			{
+				int posX = (55 * x) + 980;
+				int posY = (55 * y) + 547;
+				g.drawImage(Drawing.getImage("interface/battleCommandBack.png"), posX, posY, null);
+				
+				// Note: there needs to be an array of commands to display
+				String icon = "icon/temp.png";
+				if(x==1){g.drawImage(Drawing.getImage(icon), posX, posY, null);}
+			}
+		}
+	}
+	
+	public void renderInterfaceSelectionDetails(Graphics g)
+	{
 		// Data
 		String selectTitle = "";
 		BufferedImage portrait = Drawing.getImage("portrait/temp.png");
@@ -178,7 +230,20 @@ public class StateBattle extends State
 	
 	public void tickAdvanceBuildings()
 	{
-		
+		for(int x=1;x<=Game.battle.buildingCount;x+=1)
+		{
+			if(Game.battle.building[x].action=="Train")
+			{
+				Game.battle.building[x].actionTrainNow+=1;
+				if(Game.battle.building[x].actionTrainNow==Game.battle.building[x].actionTrainMax)
+				{
+					//Game.battle.addUnit()
+					Game.battle.building[x].action = "Idle";
+					Game.battle.building[x].actionTrainNow = 0;
+					Game.battle.building[x].actionTrainMax = 0;
+				}
+			}
+		}
 	}
 	
 	public void tickAdvanceUnits()
@@ -324,17 +389,11 @@ public class StateBattle extends State
 	
 	public String tickClickZone(int x, int y)
 	{
-		if(y>=0 && y<=50)
-		{
-			if(x>=0 && x<=1275){return "InterfaceResources";}
-			//if(x>=1276 && x<=1366){return "Interface
-		}
-		if(y>=51 && y<=626){return "Board";}
-		if(y>=627 && y<=768)
-		{
-			if(x>=0 && x<=1166){return "InterfaceSelection";}
-			if(x>=1167 && x<=1366){return "InterfaceMap";}
-		}
+		if(x>=0 && x<1366 && y>=0 && y<50){return "InterfacePanel";}
+		if(x>=0 && x<1366 && y>=50 && y<626){return "Board";}
+		if(x>=0 && x<360 && y>=498 && y<768){return "InterfaceMap";}
+		if(x>=360 && x<660 && y>=627 && y<768){return "InterfaceResources";}
+		if(x>=660 && x<1366 && y>=627 && y<768){return "InterfaceSelection";}
 		return "None";
 	}
 	

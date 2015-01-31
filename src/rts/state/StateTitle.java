@@ -105,6 +105,11 @@ public class StateTitle extends State
 				Battle.building[1].width = 4;
 				Battle.building[1].height = 4;
 				Battle.building[1].gfxImage = "building/TownCenter1";
+				Battle.building[1].commandLabel[1] = "Train";
+				Battle.building[1].commandLabel[2] = " ";
+				Battle.building[1].commandLabel[3] = " ";
+				Battle.building[1].commandRef[1][1] = "Settler";
+				Battle.building[1].commandIcon[1][1] = "temp";
 				
 				// Temp - Computer
 				Battle.army[2] = new BattleArmy("Computer","Nation2");
