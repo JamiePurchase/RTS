@@ -61,12 +61,12 @@ public class StateTitle extends State
 	
 	public void tick()
 	{
-		if(Game.mouse.mouseActionPressed==true)
+		if(Game.mouse.mouseActionPressedL==true)
 		{
 			String ref = Game.mouse.nexusCheckRef();
 			if(ref=="ButtonStart")
 			{
-				Game.mouse.mouseActionPressed = false;
+				Game.mouse.mouseActionDone();
 				
 				// Battle
 				Game.setStateChange(new StateBattle());
@@ -90,6 +90,16 @@ public class StateTitle extends State
 				Battle.unit[1].healthNow = 100;
 				Battle.unit[1].healthMax = 100;
 				Battle.unit[1].action = "Idle";
+				Battle.unitAdd("Temp", 1, 12, 11);
+				Battle.unit[2].name = "Explorer";
+				Battle.unit[2].posD = "S";
+				Battle.unit[2].width = 1;
+				Battle.unit[2].height = 1;
+				Battle.unit[2].gfxTileset = "unit/explorer2";
+				Battle.unit[2].gfxPortrait = "portrait/temp";
+				Battle.unit[2].healthNow = 100;
+				Battle.unit[2].healthMax = 100;
+				Battle.unit[2].action = "Idle";
 				Battle.buildingAdd("TownCenter",1,4,4);
 				Battle.building[1].name = "Town Center";
 				Battle.building[1].width = 4;

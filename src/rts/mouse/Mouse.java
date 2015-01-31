@@ -14,18 +14,29 @@ public class Mouse extends MouseAdapter
 	public boolean mouseOnScreen;
 	
 	// Actions
-	public boolean mouseActionPressed = false;
+	public boolean mouseActionPressedL = false;
+	public boolean mouseActionPressedR = false;
+	public boolean mouseActionPressedW = false;
 	
 	// Nexus
 	public Nexus[] mouseNexus = new Nexus[10];
 	public int mouseNexusCount = 0;
+	
+	public void mouseActionDone()
+	{
+		mouseActionPressedL = false;
+		mouseActionPressedR = false;
+		mouseActionPressedW = false;
+	}
 
 	@Override
 	public void mousePressed (MouseEvent e)
 	{
 		mouseCoordsX = e.getX();
 		mouseCoordsY = e.getY();
-		mouseActionPressed = true;
+		if(e.getButton() == MouseEvent.BUTTON1){mouseActionPressedL = true;}
+		if(e.getButton() == MouseEvent.BUTTON2){mouseActionPressedW = true;}
+		if(e.getButton() == MouseEvent.BUTTON3){mouseActionPressedR = true;}
 	}
 
 	@Override

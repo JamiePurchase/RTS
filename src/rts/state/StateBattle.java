@@ -165,16 +165,9 @@ public class StateBattle extends State
 	
 	public void tick()
 	{
-		if(Game.battle.tickPause==false){tickAdvance();}
-		
-		// Debug
-		/*if(Game.mouse.mouseActionPressed==true)
-		{
-			String debug = "Mouse click at " + Game.mouse.mouseCoordsX +", " + Game.mouse.mouseCoordsY; 
-			System.out.println(debug);
-		}*/
-		
-		if(Game.mouse.mouseActionPressed==true){tickClick();}
+		if(Game.battle.tickPause==false){tickAdvance();}		
+		if(Game.mouse.mouseActionPressedL==true){tickClick();}
+		if(Game.mouse.mouseActionPressedR==true){tickClickRight();}
 	}
 	
 	public void tickAdvance()
@@ -207,7 +200,7 @@ public class StateBattle extends State
 		if(clickZone=="InterfaceMap"){tickClickInterfaceMap();}
 		if(clickZone=="InterfaceResources"){tickClickInterfaceResources();}
 		if(clickZone=="InterfaceSelection" && Game.battle.selectionActive==true){tickClickBoard();}
-		Game.mouse.mouseActionPressed = false;
+		Game.mouse.mouseActionDone();
 	}
 	
 	public void tickClickBoard()
@@ -297,6 +290,36 @@ public class StateBattle extends State
 	public void tickClickMenuMain()
 	{
 		
+	}
+	
+	public void tickClickRight()
+	{
+		if(Game.battle.selectionActive==true && tickClickZone(Game.mouse.mouseCoordsX,Game.mouse.mouseCoordsY)=="Board")
+		{
+			if(Game.battle.selectionType=="Building" && Game.battle.building[Game.battle.selectionID].army ==1)
+			{
+				tickClickRightBuilding(Game.battle.selectionID);
+			}
+			if(Game.battle.selectionType=="Unit" && Game.battle.unit[Game.battle.selectionID].army ==1)
+			{
+				tickClickRightUnit(Game.battle.selectionID);
+			}
+		}
+		Game.mouse.mouseActionDone();
+	}
+	
+	public void tickClickRightBuilding(int id)
+	{
+		// Set rally point? Can this building attack?
+		String debug = "Building #" + id + " requesting relocation of rally point";
+		System.out.println(debug);
+	}
+	
+	public void tickClickRightUnit(int id)
+	{
+		// Did we click on an enemy or an open space?
+		String debug = "Unit #" + id + " issued orders";
+		System.out.println(debug);
 	}
 	
 	public String tickClickZone(int x, int y)

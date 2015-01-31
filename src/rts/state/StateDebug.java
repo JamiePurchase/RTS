@@ -44,13 +44,13 @@ public class StateDebug extends State
 	
 	public void tick()
 	{
-		if(Game.mouse.mouseActionPressed==true)
+		if(Game.mouse.mouseActionPressedL==true)
 		{
 			int click = Game.mouse.nexusCheck();
 			if(click==1)
 			{
 				//State.setStateChange("Title");
-				Game.mouse.mouseActionPressed = false;
+				Game.mouse.mouseActionDone();
 			}
 			if(click==2)
 			{

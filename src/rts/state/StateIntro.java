@@ -34,9 +34,9 @@ public class StateIntro extends State
 	
 	public void tickClick()
 	{
-		if(Game.mouse.mouseActionPressed==true)
+		if(Game.mouse.mouseActionPressedL==true)
 		{
-			Game.mouse.mouseActionPressed = false;
+			Game.mouse.mouseActionDone();
 			Game.setStateChange(new StateTitle());
 		}
 	}
