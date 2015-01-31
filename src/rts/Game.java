@@ -1,7 +1,10 @@
 package rts;
+import rts.graphics.Assets;
 import rts.mouse.Mouse;
 import rts.state.State;
+import rts.state.StateBattle;
 import rts.state.StateDebug;
+import rts.state.StateIntro;
 import rts.state.StateTitle;
 
 import java.awt.Canvas;
@@ -18,21 +21,25 @@ import javax.swing.JPanel;
 
 public class Game extends JFrame implements Runnable
 {
-	private Image dbImage;
-	private Graphics dbGraphics;
-	public static Mouse mouse;
-	private Thread thread;
-	private boolean running = false;
-	private BufferStrategy bs;
-	private Graphics g;
-	
 	// States
 	public State gameState;
-	//public State stateTitle, stateDebug;
+	public static State gameStateNew;
+	public static boolean gameStateChange = false;
+
+	// Graphics
+	private BufferStrategy bs;
+	private Graphics g;
+	public Canvas canvas;
+	
+	// Mouse
+	public static Mouse mouse;
+	
+	// Threads
+	private Thread thread;
+	private boolean running = false;
  
 	public Game()
 	{
-		//init();
 	}
 	
 	public void init()
@@ -44,36 +51,28 @@ public class Game extends JFrame implements Runnable
 	public void initGame()
 	{
 		mouse = new Mouse();
-		//addMouseListener (new Mouse());
 		addMouseListener (mouse);
 		setTitle("RTS");
 		setSize(1366, 768);
-		// Temp
-		//setUndecorated(true);
+		setUndecorated(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*x = 15;
-		y = 15;*/
-		
-		// Create a JPanel
-		/*JPanel panel = new JPanel();
-        add(panel);
-        panel.requestFocusInWindow();*/
 		
 		// Create the canvas
-		/*canvas = new Canvas();
+		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(1366, 768));
 		canvas.setMaximumSize(new Dimension(1366, 768));
-		canvas.setMinimumSize(new Dimension(1366, 768));*/
+		canvas.setMinimumSize(new Dimension(1366, 768));
+		canvas.addMouseListener (mouse);
 		
 		// Add the canvas to the frame
-		//add(canvas);
+		add(canvas);
 		//pack();
 
+		Assets.init();
 	}
 	
 	public void initStates()
@@ -84,45 +83,44 @@ public class Game extends JFrame implements Runnable
 		stateTitle = new StateTitle();*/
 		
 		// Initial State
-		State.setState(new StateTitle());
-	}
-
-	public void paint (Graphics g)
-	{
-		// Temp
-		//g.setColor(Color.BLACK);
-		//g.fillRect(0, 0, 1366, 768);
-		
-		dbImage = createImage(getWidth(), getHeight());
-		dbGraphics = dbImage.getGraphics();
-		
-		// Temp
-		State.getState().render(dbGraphics);
-		
-		paintComponent(dbGraphics);
-		g.drawImage(dbImage, 0, 0, this);
-		
-		// Temp
-		/*if(State.getState() != null)
-		{
-			State.getState().render(g);
-		}*/
-	}
-
-	public void paintComponent (Graphics g)
-	{
-		//g.fillOval(mouse.mouseCoordsX,mouse.mouseCoordsY,15,15);
-		if (mouse.mouseOnScreen)
-		{
-			//g.setColor(Color.RED);
-			//g.drawString("Coords: ("+ x + " , "+y+ ")", 150, 150);
-		}
- 
-		repaint();
+		State.setState(new StateIntro());
+		//State.setState(new StateTitle());
+		//State.setState(new StateBattle());
 	}
 	
 	public void render()
 	{
+		// Buffer strategy
+		bs = canvas.getBufferStrategy();
+		if(bs == null)
+		{
+			canvas.createBufferStrategy(3);
+			return;
+		}
+		
+		// Graphics start
+		g = bs.getDrawGraphics();
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, 1366, 768);
+		
+		// Temp
+		/*g.setColor(Color.BLUE);
+		g.fillOval(mouse.mouseCoordsX,mouse.mouseCoordsY,15,15);
+		if (mouse.mouseOnScreen)
+		{
+			//g.setColor(Color.BLUE);
+			//g.drawString("Coords: ("+ x + " , "+y+ ")", 150, 150);
+		}*/
+		
+		// Graphics draw
+		if(State.getState() != null)
+		{
+			State.getState().render(g);
+		}
+
+		// Graphics done
+		bs.show();
+		g.dispose();
 	}
 	
 	public void run()
@@ -165,6 +163,12 @@ public class Game extends JFrame implements Runnable
 		stop();
 	}
 	
+	public static void setStateChange(State newState)
+	{
+		Game.gameStateChange = true;
+		Game.gameStateNew = newState;
+	}
+	
 	public synchronized void start()
 	{
 		if(running==false)
@@ -192,6 +196,14 @@ public class Game extends JFrame implements Runnable
 	
 	public void tick()
 	{
+		if(gameStateChange==true){tickStateChange();}
 		State.getState().tick();
 	}
+
+	public void tickStateChange()
+	{
+		State.setState(gameStateNew);
+		gameStateChange = false;
+	}
+	
 }

@@ -7,6 +7,11 @@ import rts.graphics.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 public class StateTitle extends State
 {
@@ -14,20 +19,23 @@ public class StateTitle extends State
 	
 	public StateTitle()
 	{
-		//initImages();
+		initImages();
 		initNexus();
 	}
 	
 	public void initImages()
 	{
-		imgLogo = ImageLoader.loadImage("/interface/titleLogo.png");
+		// Temp
+		//"C:/Eclipse/Workspace/RTS/res/interface/titleLogo.png"
+		
+		//imgLogo = ImageLoader.loadImage("/interface/titleLogo.png");
 	}
 	
 	public void initNexus()
 	{
 		Game.mouse.nexusClear();
-		Game.mouse.nexusAdd("ButtonStart",100, 100, 150, 50);
-		Game.mouse.nexusAdd("ButtonQuit",100, 300, 150, 50);
+		Game.mouse.nexusAdd("ButtonStart",800, 500, 200, 50);
+		Game.mouse.nexusAdd("ButtonQuit",800, 600, 200, 50);
 	}
 	
 	public void render(Graphics g)
@@ -40,13 +48,13 @@ public class StateTitle extends State
 	{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1366, 768);
-		//g.drawImage(imgLogo,  0, 0, null);
+		g.drawImage(Drawing.getImage("interface/titleLogo.png"),  0, 0, null);
 	}
 	
 	public void renderOptions(Graphics g)
 	{
-		Drawing.drawMenuItem(g, "Start",100,100,0);
-		Drawing.drawMenuItem(g, "Quit",100,300,0);
+		Drawing.drawMenuItem(g, "Start",800,500,0);
+		Drawing.drawMenuItem(g, "Quit",800,600,0);
 	}
 	
 	public void tick()
@@ -56,7 +64,7 @@ public class StateTitle extends State
 			String ref = Game.mouse.nexusCheckRef();
 			if(ref=="ButtonStart")
 			{
-				//State.setStateChange("Title");
+				Game.setStateChange(new StateBattle());
 				Game.mouse.mouseActionPressed = false;
 			}
 			if(ref=="ButtonQuit")

@@ -1,6 +1,11 @@
 package rts.display;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import rts.graphics.Assets;
 
@@ -41,19 +46,49 @@ public class Drawing
 	public static void drawMenuItem(Graphics g, String text, int x, int y, int hover)
 	{
 		// Temp (move to arguments)
-		int width = 150;
+		int width = 200;
 		int height = 50;
 		
+		// Shadow
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(x+1, y+1, width, height);
+		g.fillRect(x+2, y+2, width, height);
+		g.fillRect(x+3, y+3, width, height);
+		
+		// Background
 		g.setColor(Color.WHITE);
 		g.fillRect(x, y, width, height);
+		
+		// Border
 		g.setColor(Color.BLUE);
 		g.drawRect(x, y, width, height);
-		g.setFont(Assets.fontButton);
-		g.drawString(text, x+15, y+25);
+		g.drawRect(x+1, y+1, width-2, height-2);
 		
-		/*g.setFont(Assets.fontStandard);
-		if(hover==1){g.setFont(Assets.fontStandardBold);}
-		g.setColor(Color.BLACK);
-		g.drawString(text, x, y);*/
+		// Text
+		g.setColor(Color.BLUE);
+		g.setFont(Assets.fontButton);
+		g.drawString(text, x+15, y+35);
 	}
+	
+	public static Color getColorRGB(int r, int g, int b)
+	{
+		float hsb[] = Color.RGBtoHSB(185,122,87,null);
+		return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+	}
+	
+	public static BufferedImage getImage(String filepath)
+	{
+		filepath = "C:/Eclipse/Workspace/RTS/res/" + filepath;
+		BufferedImage image = null;
+		try
+		{
+			image = ImageIO.read(new File(filepath));
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+		return image;
+	}
+	
 }
