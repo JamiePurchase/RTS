@@ -71,6 +71,7 @@ public class Game extends JFrame implements Runnable
 		canvas.setMaximumSize(new Dimension(1366, 768));
 		canvas.setMinimumSize(new Dimension(1366, 768));
 		canvas.addMouseListener (mouse);
+		canvas.addMouseMotionListener (mouse);
 		
 		// Add the canvas to the frame
 		add(canvas);
@@ -106,15 +107,6 @@ public class Game extends JFrame implements Runnable
 		g = bs.getDrawGraphics();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, 1366, 768);
-		
-		// Temp
-		/*g.setColor(Color.BLUE);
-		g.fillOval(mouse.mouseCoordsX,mouse.mouseCoordsY,15,15);
-		if (mouse.mouseOnScreen)
-		{
-			//g.setColor(Color.BLUE);
-			//g.drawString("Coords: ("+ x + " , "+y+ ")", 150, 150);
-		}*/
 		
 		// Graphics draw
 		if(State.getState() != null)

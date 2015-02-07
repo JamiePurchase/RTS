@@ -3,10 +3,11 @@ import rts.mouse.Nexus;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import rts.Game;
 
-public class Mouse extends MouseAdapter
+public class Mouse extends MouseAdapter implements MouseMotionListener
 {
 	// Location
 	public int mouseCoordsX;
@@ -28,6 +29,28 @@ public class Mouse extends MouseAdapter
 		mouseActionPressedR = false;
 		mouseActionPressedW = false;
 	}
+    
+    public void mouseDragged(MouseEvent e)
+    {
+		mouseCoordsX = e.getX();
+		mouseCoordsY = e.getY();
+    }
+
+	public void mouseEntered (MouseEvent e)
+	{
+		mouseOnScreen = true;
+	}
+	
+	public void mouseExited (MouseEvent e)
+	{
+		mouseOnScreen = false;
+	}
+    
+    public void mouseMoved(MouseEvent e)
+    {
+		mouseCoordsX = e.getX();
+		mouseCoordsY = e.getY();
+    }
 
 	@Override
 	public void mousePressed (MouseEvent e)
@@ -43,16 +66,6 @@ public class Mouse extends MouseAdapter
 	public void mouseReleased (MouseEvent e)
 	{
 		
-	}
-
-	public void mouseEntered (MouseEvent e)
-	{
-		mouseOnScreen = true;
-	}
-	
-	public void mouseExited (MouseEvent e)
-	{
-		mouseOnScreen = false;
 	}
 	
 	public void nexusAdd(String ref, int posX, int posY, int width, int height)

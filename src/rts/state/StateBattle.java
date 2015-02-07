@@ -14,7 +14,10 @@ public class StateBattle extends State
 	
 	public StateBattle()
 	{
-		
+		Game.mouse.nexusAdd("BorderT", 0, 0, 1366, 10);
+		Game.mouse.nexusAdd("BorderL", 0, 50, 10, 704);
+		Game.mouse.nexusAdd("BorderR", 1356, 50, 10, 704);
+		Game.mouse.nexusAdd("BorderB", 0, 758, 1366, 10);
 	}
 	
 	public void render(Graphics g)
@@ -217,7 +220,8 @@ public class StateBattle extends State
 	
 	public void tick()
 	{
-		if(Game.battle.tickPause==false){tickAdvance();}		
+		if(Game.battle.tickPause==false){tickAdvance();}	
+		tickBorderScroll();
 		if(Game.mouse.mouseActionPressedL==true){tickClick();}
 		if(Game.mouse.mouseActionPressedR==true){tickClickRight();}
 	}
@@ -249,6 +253,15 @@ public class StateBattle extends State
 	public void tickAdvanceUnits()
 	{
 		
+	}
+	
+	public void tickBorderScroll()
+	{
+		String ref = Game.mouse.nexusCheckRef();
+		if(ref=="BorderT"){System.out.println("BorderT");}
+		if(ref=="BorderL"){System.out.println("BorderL");}
+		if(ref=="BorderR"){System.out.println("BorderR");}
+		if(ref=="BorderB"){System.out.println("BorderB");}
 	}
 	
 	public void tickClick()
